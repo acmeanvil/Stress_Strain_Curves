@@ -32,7 +32,8 @@ def draw_main_figure(_x_range: list(float), _y_range: list(float), _x_bracket: t
         line_color="gray",
         legendrank=1)
     )
-    fig_ss_main.update_layout(legend=dict( yanchor="top", y=0.90, xanchor="left", x=0.01), margin=dict(l=5, r=5, t=5, b=5))
+    #legend=dict( yanchor="top", y=1, xanchor="left", x=0.01)
+    fig_ss_main.update_layout(showlegend=False, margin=dict(l=5, r=5, t=5, b=5), width=500, height=600)
     if _x_bracket:
         fig_ss_main.add_trace(
             go.Scatter(
@@ -54,7 +55,7 @@ def draw_main_figure(_x_range: list(float), _y_range: list(float), _x_bracket: t
         fig_ss_main.add_trace(
             go.Scatter(
             name="Y-Min",
-            x=[min(_x_range),max(_x_range)],
+            x=[0,max(_x_range)],
             y=[_y_bracket[0], _y_bracket[0]],
             line_width=1,
             line_color="blue")
@@ -62,7 +63,7 @@ def draw_main_figure(_x_range: list(float), _y_range: list(float), _x_bracket: t
         fig_ss_main.add_trace(
             go.Scatter(
             name="Y-Max",
-            x=[min(_x_range),max(_x_range)],
+            x=[0,max(_x_range)],
             y=[_y_bracket[1], _y_bracket[1]],
             line_width=1,
             line_color="blue")

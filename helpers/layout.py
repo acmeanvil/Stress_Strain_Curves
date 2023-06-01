@@ -20,25 +20,11 @@ def display_main_graph_component(_x_range: list(float), _y_range: list(float))->
     with container_1:
         col1, col2 = st.columns(2)
         with col1:
-            x_brack=st.checkbox('X Range Bracket')
-            x_range=()
-            if x_brack:
-                x_range=st.slider('x range',
-                    value=[min(_x_range)+2,
-                    max(_x_range)-2],
-                    min_value=min(_x_range),
-                    max_value=max(_x_range))
-                range_dict.update({'x_range':x_range})
+            x_range=range_slider_with_checkbox("X Range Bracket", 'x range', _x_range)
+            range_dict.update({'x_range':x_range}) 
         with col2:
-            y_brack=st.checkbox('Y Range Bracket')
-            y_range=()
-            if y_brack:
-                y_range=st.slider('y range',
-                    value=[min(_y_range)+2,
-                    max(_y_range)-2],
-                    min_value=min(_y_range),
-                    max_value=max(_y_range))
-                range_dict.update({'y_range':y_range})   
+            y_range=range_slider_with_checkbox("Y Range Bracket", 'y range', _y_range)
+            range_dict.update({'y_range':y_range})  
     container_2=st.container()
     with container_2:
                 fig_ss_main=fh.draw_main_figure(_x_range, _y_range, x_range, y_range)
@@ -77,4 +63,4 @@ def range_slider_with_checkbox(_chk_label: str, _sldr_label: str, _range: list(f
             max(_range)-2],
             min_value=min(_range),
             max_value=max(_range))
-        return range_dict.update({_sldr_label:range}) 
+        return range 
