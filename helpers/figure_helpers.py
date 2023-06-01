@@ -17,6 +17,11 @@ def draw_main_figure(_x_range: list(float), _y_range: list(float), _x_bracket: t
     """ 
     
     """
+    x_max=max(_x_range)
+    x_min=min(_x_range)
+    y_max=max(_y_range)
+    y_min=min(_y_range)
+    
     fig_ss_main = go.Figure()
     fig_ss_main.add_trace(
         go.Scatter(

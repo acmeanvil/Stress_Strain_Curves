@@ -1,3 +1,13 @@
+"""
+Copyright 2023 Acmeanvil
+
+Use of this source code is governed by an MIT-style
+license that can be found in the LICENSE file or at
+https://opensource.org/licenses/MIT.
+
+A stress strain curve exploration tool
+"""
+
 from __future__ import annotations
 
 import streamlit as st
@@ -39,7 +49,32 @@ def display_sidebar():
     with st.sidebar:
         tab1, tab2 = st.tabs(['File','Traces'])
         with tab1:
-            pass
+            upload=st.file_uploader("Choose data file to upload")
         with tab2:
             pass
 
+def single_slider(_label: str, _min: float, _max: float, _start_value)->float:
+    """
+    Display a single slider, returns the current slider value
+    """
+    return st.slider(label=_label, min_value=_min, max_value=_max, value=_start_value)
+
+def percentage_slider(_label: str, _start_value)->float:
+    """
+    Displays a single slider with values from 0-100, returns a percent value
+    """
+    return st.slider(label=_label, min_value=0.0, max_value=100.0, value=_start_value)
+
+def range_slider_with_checkbox(_chk_label: str, _sldr_label: str, _range: list(float))->tuple:
+    """
+    Display a range slider that can be enabled and disabled via checkbox
+    """
+    checked=st.checkbox(_chk_label)
+    range_dict={_sldr_label:""}
+    if checked:
+        range=st.slider(_sldr_label,
+            value=[min(_range)+2,
+            max(_range)-2],
+            min_value=min(_range),
+            max_value=max(_range))
+        return range_dict.update({_sldr_label:range}) 
