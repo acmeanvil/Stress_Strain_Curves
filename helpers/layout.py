@@ -14,8 +14,8 @@ import streamlit as st
 import plotly.graph_objects as go
 import helpers.figure_helpers as fh
 
-def display_main_graph_component(_x_range: list(float), _y_range: list(float))->go.Figure:
-    range_dict={'x_range':(),'y_range':()}
+def display_range_component(_x_range: list(float), _y_range: list(float))->go.Figure:
+    range_dict={'x_range':(),'y_range':(), 'slice_range':()}
     container_1=st.container()
     with container_1:
         col1, col2 = st.columns(2)
@@ -27,21 +27,14 @@ def display_main_graph_component(_x_range: list(float), _y_range: list(float))->
             range_dict.update({'y_range':y_range})  
     container_2=st.container()
     with container_2:
-                fig_ss_main=fh.draw_main_figure(_x_range, _y_range, x_range, y_range)
-                st.plotly_chart(fig_ss_main, use_container_width=True)
+        slice_range=single_slider("Select Data", 0.0, 100.0, (0.0,100.0))
+        range_dict.update({'slice_range':slice_range})
     return range_dict
-
-def display_sidebar():
-    with st.sidebar:
-        tab1, tab2 = st.tabs(['File','Traces'])
-        with tab1:
-            upload=st.file_uploader("Choose data file to upload")
-        with tab2:
-            pass
 
 def single_slider(_label: str, _min: float, _max: float, _start_value)->float:
     """
-    Display a single slider, returns the current slider value
+    Can display a single slider, or a single range slider
+    returns the current slider value or a range min/max tuple
     """
     return st.slider(label=_label, min_value=_min, max_value=_max, value=_start_value)
 
@@ -59,8 +52,9 @@ def range_slider_with_checkbox(_chk_label: str, _sldr_label: str, _range: list(f
     range_dict={_sldr_label:""}
     if checked:
         range=st.slider(_sldr_label,
-            value=[min(_range)+2,
-            max(_range)-2],
-            min_value=min(_range),
-            max_value=max(_range))
+            value=[0.0001,
+            max(_range)],
+            min_value=0.001,
+            max_value=max(_range),
+            step=0.001)
         return range 
