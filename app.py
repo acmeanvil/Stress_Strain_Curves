@@ -99,14 +99,15 @@ with st.sidebar:
                         with colt2_2:
                             st.number_input('Intercept', key=f'incpt_key{i}') 
                             incpt_keys.append(f'incpt_key{i}')
+        
         container_t26=st.container()
         with container_t26:
             st.header('Add Secant Modulus')
             colt26_1, colt26_2=st.columns(2)
             with colt26_1:
-                secant_max_x=st.number_input("X Max",value=0, key="secant_x")
+                secant_max_x=st.number_input("X Max",value=0.0,format='%.4f', key="secant_x", step=0.001)
             with colt26_2:
-                secant_max_y=st.number_input("Y Max",value=0, key="secant_y")
+                secant_max_y=st.number_input("Y Max",value=0.0,format='%.4f', key="secant_y")
             try:
                 secant_slope=secant_max_y/secant_max_x
                 st.info(f'Slope: {round(secant_slope, 2)}')
@@ -117,8 +118,8 @@ with st.sidebar:
     with tab3:
         st.header('Add Curve Offset')
         try:
-            x_offset=st.number_input('X Offset', value=0.0, min_value=-strain_norm_max, max_value=strain_norm_max, step=0.001) 
-            y_offset=st.number_input('Y Offset', value=0.0)   
+            x_offset=st.number_input('X Offset', format='%.4f', value=0.0, min_value=-strain_norm_max, max_value=strain_norm_max, step=0.001) 
+            y_offset=st.number_input('Y Offset', format='%.4f', value=0.0)   
         except:                   
             pass
 
@@ -188,19 +189,21 @@ with tab0_1:
             try:
                 secant_slope=st.session_state['secant_y']/st.session_state['secant_x']
                 sect_trace_dict=fh.get_trace_points(secant_slope, 0, secant_max_y, secant_max_y)
-                fh.fig_add_trace(fig_ss_main, 'Secant', trace_dict['x'], trace_dict['y'])
+                fh.fig_add_trace(fig_ss_main, 'Secant', sect_trace_dict['x'], sect_trace_dict['y'])
             except ZeroDivisionError:
                 pass
         except KeyError:
             pass
         st.plotly_chart(fig_ss_main, use_container_width=True)  
+    
     container_4=st.container()
     with container_4:
         st.markdown("<h5 style='text-align: center; color: gray;'>Slope and Intercept</h5>", unsafe_allow_html=True)
         col4_1, col4_2 = st.columns(2)
         with col4_1:
-            
-            slope_incpt=dh.get_np_slope_and_intercept(_x=list(df_slice['Strain_Norm']), _y=list(df_slice['Stress_Filtered']), _degree=1)
+            x_list=[x+x_offset for x in list(df_slice['Strain_Norm'])]
+            y_list=[y+y_offset for y in list(df_slice['Stress_Filtered'])]
+            slope_incpt=dh.get_np_slope_and_intercept(_x=x_list, _y=y_list, _degree=1)
             slope_button=st.button('Slope', key='slope_button', use_container_width=True) 
             if slope_button:
                 try:
@@ -219,7 +222,7 @@ with tab0_1:
         st.markdown("<h5 style='text-align: center; color: gray;'>X Max and Min</h5>", unsafe_allow_html=True)
         col4_3, col4_4 = st.columns(2)  
         with col4_3:
-            x_min_df=df_slice['Strain_Norm'].min()
+            x_min_df=(df_slice['Strain_Norm'].min())+x_offset
             x_min_df_button=st.button('Min', key='x_min_df_button', use_container_width=True) 
             if x_min_df_button:
                 try:
@@ -227,7 +230,7 @@ with tab0_1:
                 except NameError:
                     st.info(0)
         with col4_4:
-            x_max_df=df_slice['Strain_Norm'].max()
+            x_max_df=(df_slice['Strain_Norm'].max())+x_offset
             x_max_df_button=st.button('Max', key='x_max_df_button', use_container_width=True) 
             if x_max_df_button:
                 try:
@@ -238,7 +241,7 @@ with tab0_1:
         st.markdown("<h5 style='text-align: center; color: gray;'>Y Max and Min</h5>", unsafe_allow_html=True)
         col4_3, col4_4 = st.columns(2)  
         with col4_3:
-            y_min_df=df_slice['Stress_Filtered'].min()
+            y_min_df=(df_slice['Stress_Filtered'].min())+y_offset
             y_min_df_button=st.button('Min', key='y_min_df_button', use_container_width=True) 
             if y_min_df_button:
                 try:
@@ -246,7 +249,7 @@ with tab0_1:
                 except NameError:
                     st.info(0)
         with col4_4:
-            y_max_df=df_slice['Stress_Filtered'].max()
+            y_max_df=(df_slice['Stress_Filtered'].max())+y_offset
             y_max_df_button=st.button('Max', key='y_max_df_button', use_container_width=True) 
             if y_max_df_button:
                 try:
