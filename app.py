@@ -27,7 +27,7 @@ template_out=df_org.to_csv().encode('utf-8')
 with st.sidebar:
     tab1, tab2, tab3 = st.tabs(['File','Traces', 'Tools'])
     with tab1:
-        st.markdown("<h2 style='text-align: center; color: white;'>Upload File of Use Sample</h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='text-align: center; color: white;'>Upload File or Use Current Sample</h2>", unsafe_allow_html=True)
         try: 
             upload=st.file_uploader("Choose data file to upload", type='csv')
             
