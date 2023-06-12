@@ -53,8 +53,8 @@ with st.sidebar:
             strain_norm_min=min(strain_norm)
         except ValueError:
             pass
-    st.markdown("<h2 style='text-align: center; color: white;'>Data Import Format Template</h2>", unsafe_allow_html=True)
-    st.download_button("Download Data Template", data=template_out, file_name='Stress_Strain_Template.csv', mime='text/csv', use_container_width=True)    
+        st.markdown("<h2 style='text-align: center; color: white;'>Data Import Format Template</h2>", unsafe_allow_html=True)
+        st.download_button("Download Data Template", data=template_out, file_name='Stress_Strain_Template.csv', mime='text/csv', use_container_width=True)    
     with tab2:
         container_t21=st.container()
         with container_t21:
