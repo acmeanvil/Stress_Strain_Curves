@@ -26,6 +26,7 @@ import io
 with st.sidebar:
     tab1, tab2, tab3 = st.tabs(['File','Traces', 'Tools'])
     with tab1:
+        st.header('Upload file or Use Sample') 
         try: 
             upload=st.file_uploader("Choose data file to upload", type='csv')
             
@@ -110,7 +111,7 @@ with st.sidebar:
                 secant_max_y=st.number_input("Y Max",value=0.0,format='%.4f', key="secant_y")
             try:
                 secant_slope=secant_max_y/secant_max_x
-                st.info(f'Slope: {round(secant_slope, 2)}')
+                st.info(f'Sec Mod.: {round(secant_slope, 2)}')
             except ZeroDivisionError:
                 pass
 
@@ -124,7 +125,7 @@ with st.sidebar:
             pass
 
 
-tab0_1, tab0_2 = st.tabs(['Main', 'Data'])
+tab0_1, tab0_2, tab0_3 = st.tabs(['Main', 'Data', 'Template'])
 with tab0_1:
     container_1=st.container()
     with container_1:
@@ -286,4 +287,19 @@ with tab0_2:
             df_out.info(buf=buf, verbose=True)
             info=buf.getvalue()
             st.text(info)   
+
+with tab0_3:
+    st.markdown("<h5 style='text-align: center; color: gray;'>Data Import Format Template</h5>", unsafe_allow_html=True)
+    container3_2 = st.container()
+
+    with container3_2:
+        col3_1, col3_2, col3_3 = st.columns(3)
+        df_org=pd.read_csv('Stress_Strain_Template.csv')
+        template_out=df_org.to_csv().encode('utf-8')
+        with col3_2:
+            st.download_button("Download Data Template", data=csv_out, file_name='Stress_Strain_Template.csv', mime='text/csv', use_container_width=True)    
             
+    container3_2 = st.container()
+    with container3_2:
+
+        st.dataframe(df_org, use_container_width=True)

@@ -36,7 +36,7 @@ def single_slider(_label: str, _min: float, _max: float, _start_value)->float:
     Can display a single slider, or a single range slider
     returns the current slider value or a range min/max tuple
     """
-    return st.slider(label=_label, min_value=_min, max_value=_max, value=_start_value)
+    return st.slider(label=_label, min_value=_min, max_value=_max, value=_start_value, step=0.001)
 
 def percentage_slider(_label: str, _start_value)->float:
     """
