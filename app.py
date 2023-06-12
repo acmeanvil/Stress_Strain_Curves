@@ -54,7 +54,7 @@ with st.sidebar:
         except ValueError:
             pass
         st.markdown("<h2 style='text-align: center; color: white;'>Data Import Format Template</h2>", unsafe_allow_html=True)
-        st.download_button("Download Data Template", data=template_out, file_name='Stress_Strain_Template.csv', mime='text/csv', use_container_width=True)    
+        st.download_button("Download Data Template", data=template_out, file_name='Stress_Strain_Template.csv', mime='text/csv', use_container_width=True, key='dl_1')    
     with tab2:
         container_t21=st.container()
         with container_t21:
@@ -297,7 +297,7 @@ with tab0_3:
     with container3_2:
         col3_1, col3_2, col3_3 = st.columns(3)
         with col3_2:
-            st.download_button("Download Data Template", data=template_out, file_name='Stress_Strain_Template.csv', mime='text/csv', use_container_width=True)    
+            st.download_button("Download Data Template", data=template_out, file_name='Stress_Strain_Template.csv', mime='text/csv', use_container_width=True, key='dl_2')    
             
     container3_2 = st.container()
     with container3_2:
