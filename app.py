@@ -20,13 +20,14 @@ import helpers.dataframe_helpers as dh
 import numpy as np
 import io
 
-
+df_org=pd.read_csv('Stress_Strain_Template.csv')
+template_out=df_org.to_csv().encode('utf-8')
 
 #stl.display_sidebar()
 with st.sidebar:
     tab1, tab2, tab3 = st.tabs(['File','Traces', 'Tools'])
     with tab1:
-        st.header('Upload file or Use Sample') 
+        st.markdown("<h2 style='text-align: center; color: white;'>Upload File of Use Sample</h2>", unsafe_allow_html=True)
         try: 
             upload=st.file_uploader("Choose data file to upload", type='csv')
             
@@ -52,7 +53,8 @@ with st.sidebar:
             strain_norm_min=min(strain_norm)
         except ValueError:
             pass
-    
+    st.markdown("<h2 style='text-align: center; color: white;'>Data Import Format Template</h2>", unsafe_allow_html=True)
+    st.download_button("Download Data Template", data=template_out, file_name='Stress_Strain_Template.csv', mime='text/csv', use_container_width=True)    
     with tab2:
         container_t21=st.container()
         with container_t21:
@@ -117,7 +119,7 @@ with st.sidebar:
 
     
     with tab3:
-        st.header('Add Curve Offset')
+        st.markdown("<h2 style='text-align: center; color: white;'>Add Curve Offset</h2>", unsafe_allow_html=True)
         try:
             x_offset=st.number_input('X Offset', format='%.4f', value=0.0, min_value=-strain_norm_max, max_value=strain_norm_max, step=0.001) 
             y_offset=st.number_input('Y Offset', format='%.4f', value=0.0)   
@@ -294,12 +296,9 @@ with tab0_3:
 
     with container3_2:
         col3_1, col3_2, col3_3 = st.columns(3)
-        df_org=pd.read_csv('Stress_Strain_Template.csv')
-        template_out=df_org.to_csv().encode('utf-8')
         with col3_2:
-            st.download_button("Download Data Template", data=csv_out, file_name='Stress_Strain_Template.csv', mime='text/csv', use_container_width=True)    
+            st.download_button("Download Data Template", data=template_out, file_name='Stress_Strain_Template.csv', mime='text/csv', use_container_width=True)    
             
     container3_2 = st.container()
     with container3_2:
-
         st.dataframe(df_org, use_container_width=True)
