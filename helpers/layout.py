@@ -20,14 +20,14 @@ def display_range_component(_x_range: list(float), _y_range: list(float))->go.Fi
     with container_1:
         col1, col2 = st.columns(2)
         with col1:
-            x_range=range_slider_with_checkbox("X Range Bracket", 'X range', _x_range)
+            x_range=range_slider_with_checkbox("X Range Slice", 'X range', _x_range)
             range_dict.update({'x_range':x_range}) 
         with col2:
-            y_range=range_slider_with_checkbox("Y Range Bracket", 'Y range', _y_range)
+            y_range=range_slider_with_checkbox("Y Range Slice", 'Y range', _y_range)
             range_dict.update({'y_range':y_range})  
     container_2=st.container()
     with container_2:
-        slice_range=single_slider("Select Data", 0.0, 100.0, (0.0,100.0))
+        slice_range=single_slider("Select Data To Display", 0.0, 100.0, (0.0,100.0))
         range_dict.update({'slice_range':slice_range})
     return range_dict
 
