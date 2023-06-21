@@ -20,6 +20,8 @@ import helpers.dataframe_helpers as dh
 import numpy as np
 import io
 
+
+
 df_org=pd.read_csv('Stress_Strain_Template.csv')
 template_out=df_org.to_csv().encode('utf-8')
 
@@ -126,7 +128,7 @@ with st.sidebar:
         except:                   
             pass
 
-
+st.markdown("<h1 style='text-align: center; color: Gray;'>Stress Strain Curve Toolkit</h1>", unsafe_allow_html=True)
 tab0_1, tab0_2, tab0_3 = st.tabs(['Main', 'Data', 'Template'])
 with tab0_1:
     container_1=st.container()
