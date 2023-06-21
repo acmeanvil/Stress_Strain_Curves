@@ -29,7 +29,7 @@ template_out=df_org.to_csv().encode('utf-8')
 with st.sidebar:
     tab1, tab2, tab3 = st.tabs(['File','Traces', 'Tools'])
     with tab1:
-        st.markdown("<h2 style='text-align: center; color: red;'>Upload File or Use Current Sample</h2>", unsafe_allow_html=True)
+        st.header('Upload File or Use Current Sample')
         try: 
             upload=st.file_uploader("Choose data file to upload", type='csv')
             
@@ -55,7 +55,7 @@ with st.sidebar:
             strain_norm_min=min(strain_norm)
         except ValueError:
             pass
-        st.markdown("<h2 style='text-align: center; color: red;'>Data Import Format Template</h2>", unsafe_allow_html=True)
+        st.header('Data Import Format Template')
         st.download_button("Download Data Template", data=template_out, file_name='Stress_Strain_Template.csv', mime='text/csv', use_container_width=True, key='dl_1')    
     with tab2:
         container_t21=st.container()
