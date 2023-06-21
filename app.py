@@ -202,8 +202,9 @@ with tab0_1:
         st.plotly_chart(fig_ss_main, use_container_width=True)  
     
     container_4=st.container()
-    st.markdown("<h3 style='text-align: center; color: gray;'>Range Slice Statistics</h3>", unsafe_allow_html=True)
+    
     with container_4:
+        st.markdown("<h3 style='text-align: center; color: gray;'>Range Slice Statistics</h3>", unsafe_allow_html=True)
         st.markdown("<h5 style='text-align: center; color: gray;'>Slope and Intercept</h5>", unsafe_allow_html=True)
         col4_1, col4_2 = st.columns(2)
         with col4_1:
