@@ -121,7 +121,7 @@ with st.sidebar:
 
     
     with tab3:
-        st.markdown("<h2 style='text-align: center; color: white;'>Add Curve Offset</h2>", unsafe_allow_html=True)
+        st.header('Add Curve Offsets')
         try:
             x_offset=st.number_input('X Offset', format='%.4f', value=0.0, min_value=-strain_norm_max, max_value=strain_norm_max, step=0.001) 
             y_offset=st.number_input('Y Offset', format='%.4f', value=0.0)   
